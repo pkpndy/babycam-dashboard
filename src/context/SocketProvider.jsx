@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo } from "react";
-import { io } from "socket.io-client";
+import { getSocket } from "../services/socket";
 
 const SocketContext = createContext(null);
 
@@ -9,7 +9,7 @@ export const useSocket = () => {
 }
 
 export const SocketProvider = (props) => {
-    const socket = useMemo(() => io('localhost:5000'), []);
+    const socket = useMemo(() => getSocket(), []);
 
     return (
         <SocketContext.Provider value={socket}>
