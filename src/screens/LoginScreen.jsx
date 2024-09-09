@@ -17,6 +17,8 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import axios from "axios";
+import { adminApis } from "../apis/backend.apis";
 
 export const LoginScreen = () => {
     const navigate = useNavigate();
@@ -25,6 +27,22 @@ export const LoginScreen = () => {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
+    };
+
+    const handleSubmit = async (values) => {
+        console.log(`${process.env.REACT_APP_API_BASE_URL}${adminApis.login}`);
+        try {
+            const result = await axios.post(
+                `${process.env.REACT_APP_API_BASE_URL}+${adminApis.login}`,
+                {
+                    email: values.emailId,
+                    password: values.password,
+                }
+            );
+            console.log(result.data);
+        } catch (err) {
+            console.error("Error during login: ", err);
+        }
     };
 
     const formik = useFormik({
@@ -40,9 +58,11 @@ export const LoginScreen = () => {
                 .min(6, "Password must be atleast 6 characters")
                 .required("Required"),
         }),
+        validateOnChange: true,
         onSubmit: (values) => {
             console.log(values);
-            navigate("/dashboard");
+            // handleSubmit(values);
+            navigate("/roomsDashboard");
         },
     });
 
@@ -131,11 +151,11 @@ export const LoginScreen = () => {
                         </FormControl>
                         <Button
                             type="submit"
-                            sx={{margin: "10px"}}
+                            sx={{ margin: "10px" }}
                             startIcon={<LoginIcon />}
                             variant="contained">
                             LogIn
-                            </Button>
+                        </Button>
                     </Stack>
                 </form>
             </Paper>
