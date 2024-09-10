@@ -32,14 +32,14 @@ export const LoginScreen = () => {
     const handleSubmit = async (values) => {
         console.log(`${process.env.REACT_APP_API_BASE_URL}${adminApis.login}`);
         try {
-            const result = await axios.post(
-                `${process.env.REACT_APP_API_BASE_URL}+${adminApis.login}`,
+            const loginResponse = await axios.post(
+                `${process.env.REACT_APP_API_BASE_URL}${adminApis.login}`,
                 {
                     email: values.emailId,
                     password: values.password,
                 }
             );
-            console.log(result.data);
+            console.log(loginResponse);
         } catch (err) {
             console.error("Error during login: ", err);
         }
@@ -60,8 +60,8 @@ export const LoginScreen = () => {
         }),
         validateOnChange: true,
         onSubmit: (values) => {
-            console.log(values);
-            // handleSubmit(values);
+            // console.log(values);
+            handleSubmit(values);
             navigate("/roomsDashboard");
         },
     });
@@ -82,7 +82,7 @@ export const LoginScreen = () => {
                 justifyContent: "center",
             }}>
             <Paper sx={{ padding: "15px" }} elevation={3}>
-                <form>
+                <form onSubmit={formik.handleSubmit}>
                     <Stack
                         direction="column"
                         spacing={2}
