@@ -9,7 +9,8 @@ const roomApis = {
 }
 
 const adminApis = {
-    login: `${pathForAdminPrefix}/login`
+    login: `${pathForAdminPrefix}/login`,
+    auth: `${pathForAdminPrefix}/auth`
 }
 
 module.exports = {

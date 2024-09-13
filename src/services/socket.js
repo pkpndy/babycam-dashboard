@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 let socket;
 export const getSocket = () => {
     if (!socket) {
-        socket = io("localhost:5000");
+        socket = io("localhost:5000/admin");
     }
     return socket;
 }
