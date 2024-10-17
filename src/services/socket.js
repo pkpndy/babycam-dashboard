@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 let socket;
 export const getSocket = () => {
     if (!socket) {
-        socket = io(`${process.env.REACT_APP_SOCKET_BASE_URL}/admin`);
+        socket = io(`${process.env.REACT_APP_SOCKET_BASE_URL}/admin`, { transports: ['websocket'] });
     }
     return socket;
 }
